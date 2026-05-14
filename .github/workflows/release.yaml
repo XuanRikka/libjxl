@@ -238,17 +238,7 @@ jobs:
             arch: '-A Win32'
           - triplet: x64-windows-static
             arch: '-A x64'
-            run_benchmark: true
-          - triplet: x64-windows-static
-            arch: '-A x64'
-            build_type: Debug
-            upload: 'OFF'
-          - triplet: x86-windows
-            arch: '-A Win32'
-            static: 'OFF'
-          - triplet: x64-windows
-            arch: '-A x64'
-            static: 'OFF'
+            run_benchmark: false
 
     env:
       VCPKG_VERSION: '2025.10.17'
@@ -323,6 +313,7 @@ jobs:
           -DJPEGXL_ENABLE_VIEWERS=OFF \
           -DJPEGXL_ENABLE_DEVTOOLS='ON' \
           -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} \
+          -DHWY_BASELINE_TARGETS=HWY_SSE4,HWY_AVX2 \
           -DX_VCPKG_APPLOCAL_DEPS_INSTALL=${{ matrix.static == 'OFF' && 'ON' || 'OFF' }} \
         #
     - name: Build
